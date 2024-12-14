@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fan Page about foxes - Learn about these amazing animals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #2c2c2c;
+            --text-color: #fff;
+            --facts-bg: #3d3d3d;
+            --shadow-color: rgba(255,255,255,0.1);
+            --accent-color: #ff6600;
+            --accent-hover: #ff8533;
+        }
+
+        [data-theme="light"]{
+            --bg-color: #fff3e6;
+            --text-color: #333;
+            --facts-bg: white;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        body{
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .container{
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1{
+            color: var(--accent-color);
+            text-align: center;
+            text-shadow: 2px 2px 4px var(--shadow-color);
+            font-size: 2.5em;
+            margin-bottom: 1.5rem;
+        }
+
+        .fox-image{
+            width: 100%;
+            max-width: 500px;
+            display: block;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease;
+            filter: brightness(1.05);
+        }
+
+        .fox-image:hover{
+            transform: scale(1.02);
+        }
+
+        .facts{
+            background-color: var(--facts-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px var(--shadow-color);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-switch:hover{
+            background-color: var(--accent-hover);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4);
+        }
+
+        .fox-types{
+            list-style: none;
+            padding: 0;
+        }
+
+        .fox-types li{
+            background: linear-gradient(45deg, var(--accent-hover), var(--accent-color));
+            margin: 12px 0;
+            padding: 18px 25px;
+            border-radius: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        .fox-types li:hover{
+            transform: translateX(10px) scale(1.02);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+
+        .fox-name{
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .fox-icon{
+            font-size: 1.8em;
+        }
+    </style>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        function App() {
+            const [theme, setTheme] = React.useState(localStorage.getItem('theme') || 'dark');
+
+            React.useEffect(() => {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }, [theme]);
+
+            const toggleTheme = () => {
+                const newTheme = theme === 'light' ? 'dark' : 'light';
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    setTheme(newTheme);
+                    document.body.style.opacity = '1';
+                }, 150);
+            };
+
+            const foxFacts = [
+                "Foxes belong to the Canidae family, which includes dogs, wolves, and jackals",
+                "A female fox is called a vixen",
+                "Foxes have whiskers on their legs and face to help them navigate",
+                "A fox's tail (or brush) can help them balance and keep warm",
+                "Foxes are found on every continent except Antarctica",
+                "Red foxes can hear rodents digging underground",
+                "Arctic foxes can survive temperatures as low as -50°C (-58°F)",
+                "A fox's den is called an 'earth'"
+            ];
+
+            const foxTypes = [
+                { name: "Red Fox", icon: "🦊" },
+                { name: "Arctic Fox", icon: "❄️" },
+                { name: "Fennec Fox", icon: "🏜️" },
+                { name: "Gray Fox", icon: "🌲" },
+                { name: "Kit Fox", icon: "🌱" }
+            ];
+
+            return (
+                <div className="container">
+                    <button className="theme-switch" onClick={toggleTheme}>
+                        {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+                    </button>
+                    
+                    <h1>🦊 Amazing Foxes Fan Page 🦊</h1>
+                    
+                    <div className="facts">
+                        <h2>Fascinating Fox Facts</h2>
+                        <ul>
+                            {foxFacts.map((fact, index) => (
+                                <li key={index}>{fact}</li>
+                            ))}
+                        </ul>
+                        
+                        <h2>Types of Foxes</h2>
+                        <ol className="fox-types">
+                            {foxTypes.map((fox, index) => (
+                                <li key={index}>
+                                    <span className="fox-name">{fox.name}</span>
+                                    <div className="fox-visuals">
+                                        <span className="fox-icon">{fox.icon}</span>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
+                    
+                    <div className="facts">
+                        <h2>Why We Love Foxes</h2>
+                        <p>Foxes are incredible creatures known for their intelligence, adaptability, and beautiful appearance. They are excellent hunters, with keen senses and remarkable agility. Their distinctive red fur, bushy tail, and pointed ears make them one of nature's most striking animals.</p>
+                        <p>In many cultures, foxes symbolize cunning and wisdom. Their ability to adapt to various environments, from arctic tundra to urban cities, showcases their remarkable resilience. Modern research has shown that foxes possess problem-solving abilities comparable to those of domestic dogs, making them one of the most intelligent wild animals.</p>
+                        <p>Urban foxes have become increasingly common in cities worldwide, demonstrating their extraordinary ability to adapt to human presence. They've learned to navigate our modern world while maintaining their wild nature, creating a fascinating bridge between wilderness and civilization.</p>
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
