@@ -1,1 +1,1 @@
-this code created by Cursor AI cuz i love Foxes =)
+this code created by Cursor AI and i just gived an idea for gpt cuz i love Foxes =)
